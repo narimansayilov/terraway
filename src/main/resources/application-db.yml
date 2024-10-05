@@ -1,0 +1,13 @@
+spring:
+  datasource:
+    url: ${database.url}
+    username: ${database.username}
+    password: ${database.password}
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: false
+    properties:
+      hibernate:
+        format_sql: true
+        default_schema: ${database.schema}
