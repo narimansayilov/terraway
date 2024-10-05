@@ -20,6 +20,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 public class SecurityConfig {
     private final JwtAuthFilter jwtAuthFilter;
     private static final String[] AUTH_WHITELIST = {
+            "/terraway/**",
             "/terraway/auth/**",
             "/terraway/users/{id}",
             "/webjars/**",
@@ -31,7 +32,7 @@ public class SecurityConfig {
             "/swagger-resources",
             "/swagger-resources/**",
             "/configuration/ui",
-            "/configuration/security",
+            "/configuration/security"
     };
 
     private static final String[] AUTH_IGNORE_WHITELIST = {
@@ -47,12 +48,12 @@ public class SecurityConfig {
                 .csrf(AbstractHttpConfigurer::disable)
                 .cors(AbstractHttpConfigurer::disable)
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-                .authorizeHttpRequests(request -> request
-                        .requestMatchers(AUTH_WHITELIST).permitAll()
-                        .requestMatchers(HttpMethod.GET, "/terraway/roles/**").permitAll()
-                        .requestMatchers(HttpMethod.GET, "/terraway/products/**").permitAll()
-                        .requestMatchers(AUTH_IGNORE_WHITELIST).hasAuthority("ADMIN")
-                        .anyRequest().authenticated())
+                .authorizeHttpRequests(request -> request.anyRequest().permitAll())
+//                        .requestMatchers(AUTH_WHITELIST).permitAll()
+//                        .requestMatchers(HttpMethod.GET, "/terraway/roles/**").permitAll()
+//                        .requestMatchers(HttpMethod.GET, "/terraway/products/**").permitAll()
+//                        .requestMatchers(AUTH_IGNORE_WHITELIST).hasAuthority("ADMIN")
+//                        .anyRequest().authenticated())
                 .httpBasic(Customizer.withDefaults())
                 .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);
         return http.build();

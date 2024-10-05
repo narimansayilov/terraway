@@ -1,5 +1,6 @@
-package com.terraway.dao.entity;
+package com.terraway.model.dto.request;
 
+import com.terraway.dao.entity.PhotoEntity;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -7,22 +8,16 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
-import org.modelmapper.internal.bytebuddy.agent.builder.AgentBuilder;
 
 import java.time.LocalDateTime;
 import java.util.List;
 
 
-@Entity
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "populations")
-public class PopulationEntity {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Long id;
+public class PopulationRequest {
     private String name;
     private String description;
     private String habitat;
@@ -33,12 +28,4 @@ public class PopulationEntity {
     private String diet;
     private String type;
 
-    @OneToMany(mappedBy = "population")
-    List<PhotoEntity> photos;
-
-    @CreationTimestamp
-    LocalDateTime createdAt;
-
-    @UpdateTimestamp
-    LocalDateTime updatedAt;
 }

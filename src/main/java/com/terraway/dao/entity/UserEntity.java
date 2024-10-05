@@ -45,6 +45,9 @@ public class UserEntity {
     @UpdateTimestamp
     LocalDateTime updatedAt;
 
+    @OneToMany(mappedBy = "user")
+    List<ReviewEntity> reviewEntities;
+
     @PrePersist
     protected void autoFill() {
         this.status = true;

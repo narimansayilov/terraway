@@ -9,6 +9,7 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 @Getter
@@ -21,7 +22,17 @@ public class ParkEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
     String name;
+    private String location;  // Parkın bulunduğu konum (şehir, bölge vb.)
 
+    private String description;
+
+//    @OneToMany(mappedBy = "park")
+//    private List<RouteEntity> routes;
+//
+//    @OneToMany(mappedBy = "park")
+//    List<ReviewEntity> reviews;
+//    @OneToMany(mappedBy = "park",cascade = CascadeType.MERGE)
+//    List<PhotoEntity> photos;
     @CreationTimestamp
     LocalDateTime createdAt;
 

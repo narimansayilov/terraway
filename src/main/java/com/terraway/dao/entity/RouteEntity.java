@@ -1,14 +1,12 @@
 package com.terraway.dao.entity;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 @Getter
@@ -17,13 +15,22 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @Table(name = "routes")
 public class RouteEntity {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Long id;
+    private Long id;
 
-    @CreationTimestamp
-    LocalDateTime createdAt;
+    @Column(nullable = false)
+    private String name;
 
-    @UpdateTimestamp
-    LocalDateTime updatedAt;
+    @ElementCollection
+    @CollectionTable(name = "route_coordinates", joinColumns = @JoinColumn(name = "route_id"))
+    @Column(name = "coordinate")
+    private List<Coordinate> coordinates;
+
+    @ManyToOne
+    ParkEntity park;
+
+    @Column(nullable = false)
+    private String difficulty;
 }
